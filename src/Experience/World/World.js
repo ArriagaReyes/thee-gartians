@@ -16,15 +16,51 @@ export default class World {
 
             //this.cube = new Cube();
 
-            const light = new THREE.DirectionalLight( 0xffffff, 0.75 );
+            // Lights
+            const directionalLight = new THREE.DirectionalLight( 0xA855F7, 3 );
             const target = new THREE.Object3D();
             target.position.set(-10, 0, -4);
-            light.target = target;
+            directionalLight.target = target;
+
+            const pointLight = new THREE.PointLight( 0xEC4899, 15, 100 );
+            pointLight.position.set(-3, 0, -2);
+
+            const ambientLight = new THREE.AmbientLight( 0xA8E7FF, 0.5 );
+
+
+            // Shaders
+            const geometry = new THREE.PlaneGeometry(1, 1 );
+
+            const material = new THREE.RawShaderMaterial({
+                vertexShader: `
+                    uniform mat4 projectionMatrix;
+                    uniform mat4 viewMatrix;
+                    uniform mat4 modelMatrix;
+
+                    attribute vec3 position;
+
+                    void main() {
+                        gl_position = projectionMatrix * viewMatrix * modelMatrix vec4(position, 1.0);
+                    }
+                `,
+                fragmentShader: `
+                    precision mediump float;
+
+                    void main() {
+                        gl_FragColor = vec4(1.0, 0.0, 0.0, 1.0);
+                    }
+                `,
+            });
+
+            const mesh = new THREE.Mesh(geometry, material);
 
             this.scene.add(target);
-            this.scene.add(light);
+            this.scene.add(directionalLight);
+            this.scene.add(pointLight);
+            this.scene.add(ambientLight);
+            //this.scene.add(mesh);
 
-            gsap.to(document.getElementById("title"), { duration: 2, fontSize: 60 });
+            gsap.to(document.getElementById("title"), { duration: 2, fontSize: 70 });
         });
     }
 
