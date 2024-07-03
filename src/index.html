@@ -8,7 +8,11 @@
     <title>Vite App</title>
 </head>
 <body>
-    <canvas id="root" class="bg-gradient-to-br from-purple-500 to-pink-500"></canvas>
+    <div id="error"></div>
+    <canvas id="root" class="absolute bg-gradient-to-br from-purple-500 to-pink-500"></canvas>
+    <div class="absolute flex flex-col justify-center items-center h-5/6 lg:h-full">
+        <img id="logo" class="scale-[0.0] opacity-0 lg:w-1/2" src="logo.png">
+    </div>
     <script type="module" src="/index.js"></script>
 </body>
 </html>

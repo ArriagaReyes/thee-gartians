@@ -9,8 +9,11 @@ export default class Camera {
         this.canvas = this.experience.canvas;
         this.scene = this.experience.scene;
 
+        this.mouseX = 0;
+        this.mouseY = 0;
+
         this.setInstance();
-        //this.setControls();
+        this.setControls();
     }
 
     setInstance() {
@@ -20,8 +23,12 @@ export default class Camera {
     }
 
     setControls() {
-        this.controls = new OrbitControls(this.instance, this.canvas);
-        this.controls.enableDamping = true;
+        window.addEventListener('pointermove', () => {
+            if(event.isPrimary === false) return;
+
+            this.mouseX = event.clientX;
+            this.mouseY = event.clientY;
+        });
     }
 
     resize() {
@@ -30,6 +37,7 @@ export default class Camera {
     }
 
     update() {
-        //this.controls.update();
+        this.instance.position.x = (2 * ((this.mouseX / this.sizes.width) - 0.5)) * 2; 
+        this.instance.position.y = (((this.mouseY / this.sizes.height ) - 0.5) * -2) * 2;
     }
 }

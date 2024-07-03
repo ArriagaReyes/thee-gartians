@@ -1,6 +1,7 @@
 import * as THREE from 'three';
 import { OBJLoader } from 'three/addons/loaders/OBJLoader';
 import EventEmitter from './EventEmitter';
+import { gsap } from 'gsap';
 
 export default class Resources extends EventEmitter {
     constructor(sources) {
@@ -11,13 +12,22 @@ export default class Resources extends EventEmitter {
         this.toLoad = this.sources.length;
         this.loaded = [];
 
+        const logoElement = document.getElementById("logo");
+        this.loadingManager = new THREE.LoadingManager(
+            () => {
+                gsap.to(logoElement, { delay: 1, duration: 3, scale: 1, opacity: 1 });
+            },
+            (itemUrl, itemsLoaded, itemsTotal) => {
+            }
+        );
+
         this.setLoaders();
         this.startLoading();
     }
 
     setLoaders() {
         this.loaders = {};
-        this.loaders.objLoader = new OBJLoader();
+        this.loaders.objLoader = new OBJLoader(this.loadingManager);
     }
 
     startLoading() {

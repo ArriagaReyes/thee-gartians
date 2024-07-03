@@ -1,20 +1,44 @@
 import Experience from '../index.js';
-import Cube from './Cube';
 import Rocket from './Rocket';
 import { gsap } from 'gsap';
 
 import * as THREE from 'three';
+import { DragControls } from 'three/addons/controls/DragControls';
 
 export default class World {
     constructor() {
         this.experience = new Experience();
+        this.camera = this.experience.camera;
         this.scene = this.experience.scene;
         this.resources = this.experience.resources;
 
+        this.controls;
+
+        const overlayGeometry = new THREE.PlaneGeometry(2, 2);
+        const overlayMaterial = new THREE.ShaderMaterial({
+            transparent: true,
+            wireframe: false,
+            uniforms: {
+                uAlpha: { value: 1.0 }
+            },
+            vertexShader: `
+                void main() {
+                    gl_Position = vec4(position, 1.0);
+                }
+            `,
+            fragmentShader: `
+                uniform float uAlpha;
+
+                void main() {
+                    gl_FragColor = vec4(0.0, 0.0, 0.0, uAlpha);
+                }
+            `
+        });
+        const overlay = new THREE.Mesh(overlayGeometry, overlayMaterial);
+        this.scene.add(overlay);
+
         this.resources.on('ready', () => {
             this.rocket = new Rocket();
-
-            //this.cube = new Cube();
 
             // Lights
             const directionalLight = new THREE.DirectionalLight( 0xA855F7, 3 );
@@ -27,46 +51,26 @@ export default class World {
 
             const ambientLight = new THREE.AmbientLight( 0xA8E7FF, 0.5 );
 
-
-            // Shaders
-            const geometry = new THREE.PlaneGeometry(1, 1 );
-
-            const material = new THREE.RawShaderMaterial({
-                vertexShader: `
-                    uniform mat4 projectionMatrix;
-                    uniform mat4 viewMatrix;
-                    uniform mat4 modelMatrix;
-
-                    attribute vec3 position;
-
-                    void main() {
-                        gl_position = projectionMatrix * viewMatrix * modelMatrix vec4(position, 1.0);
-                    }
-                `,
-                fragmentShader: `
-                    precision mediump float;
-
-                    void main() {
-                        gl_FragColor = vec4(1.0, 0.0, 0.0, 1.0);
-                    }
-                `,
-            });
-
-            const mesh = new THREE.Mesh(geometry, material);
-
             this.scene.add(target);
             this.scene.add(directionalLight);
             this.scene.add(pointLight);
             this.scene.add(ambientLight);
-            //this.scene.add(mesh);
 
-            gsap.to(document.getElementById("title"), { duration: 2, fontSize: 70 });
+            this.setDragControls();
+
+            console.log(this.controls);
+
+            gsap.to(overlayMaterial.uniforms.uAlpha, { duration: 6, value: 0 });
         });
     }
 
+    setDragControls() {
+        this.controls = new DragControls( this.rocket.scene, this.camera.instance, this.experience.canvas );
+    }
+
     update() {
-        if(this.rocket)
-            this.rocket.update();
-        console.log("Updating world!");
+        if(this.rocket) {
+            this.camera.instance.lookAt(this.rocket.scene.position);
+        }
     }
 }
