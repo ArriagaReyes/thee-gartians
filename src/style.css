@@ -1,32 +1,3 @@
-* {
-    margin: 0;
-    padding: 0;
-}
-
-html, body {
-    overflow: hidden;
-}
-
-#root {
-    position: fixed;
-    top: 0;
-    left: 0;
-    outline: none;
-}
-
-#container {
-    z-index: 2;
-    top: 0;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    position: absolute;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-#title {
-    color: #ffffff;
-    font-size: 0;
-}
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
