@@ -23,11 +23,17 @@ export default class Camera {
     }
 
     setControls() {
-        window.addEventListener('pointermove', () => {
+        window.addEventListener('pointermove', (event) => {
             if(event.isPrimary === false) return;
 
             this.mouseX = event.clientX;
             this.mouseY = event.clientY;
+        });
+
+        window.addEventListener('deviceorientation', (event) => {
+            this.mouseX = event.beta;
+            this.mouseY = event.gamma;
+            console.log(event);
         });
     }
 
