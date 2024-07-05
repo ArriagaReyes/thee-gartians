@@ -31,8 +31,8 @@ export default class Camera {
         });
 
         window.addEventListener('deviceorientation', (event) => {
-            this.mouseX = event.beta;
-            this.mouseY = event.gamma;
+            this.deviceX = event.beta * 3;
+            this.deviceY = event.gamma * 3;
             console.log(event);
         });
     }
@@ -45,5 +45,9 @@ export default class Camera {
     update() {
         this.instance.position.x = (2 * ((this.mouseX / this.sizes.width) - 0.5)) * 2; 
         this.instance.position.y = (((this.mouseY / this.sizes.height ) - 0.5) * -2) * 2;
+
+
+        this.instance.position.x = (2 * ((this.deviceX / 360) - 0.5)) * 2;
+        this.instance.position.y = (((this.deviceY / 180) - 0.5) * -2) * 2;
     }
 }
