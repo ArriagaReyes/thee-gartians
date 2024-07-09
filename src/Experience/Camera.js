@@ -8,12 +8,20 @@ export default class Camera {
         this.sizes = this.experience.sizes;
         this.canvas = this.experience.canvas;
         this.scene = this.experience.scene;
+        this.time = this.experience.time;
 
-        this.mouseX = 0;
-        this.mouseY = 0;
+        if(this.sizes.width > 720) {
+            console.log("On desktop");
+            this.mobile = false;
+            this.mouseX = 0;
+            this.mouseY = 0;
+
+            this.setDesktopControls();
+        } else {
+            this.direction = 1;
+        }
 
         this.setInstance();
-        this.setControls();
     }
 
     setInstance() {
@@ -22,18 +30,12 @@ export default class Camera {
         this.scene.add(this.instance);
     }
 
-    setControls() {
+    setDesktopControls() {
         window.addEventListener('pointermove', (event) => {
             if(event.isPrimary === false) return;
 
             this.mouseX = event.clientX;
             this.mouseY = event.clientY;
-        });
-
-        window.addEventListener('deviceorientation', (event) => {
-            this.deviceX = event.beta * 3;
-            this.deviceY = event.gamma * 3;
-            console.log(event);
         });
     }
 
@@ -43,11 +45,16 @@ export default class Camera {
     }
 
     update() {
-        this.instance.position.x = (2 * ((this.mouseX / this.sizes.width) - 0.5)) * 2; 
-        this.instance.position.y = (((this.mouseY / this.sizes.height ) - 0.5) * -2) * 2;
+        if(this.mobile == false) {
+            this.instance.position.x = (2 * ((this.mouseX / this.sizes.width) - 0.5)) * 2; 
+            this.instance.position.y = (((this.mouseY / this.sizes.height ) - 0.5) * -2) * 2;
+        } else {
+            if(this.instance.position.x > 3)
+                this.direction = -1;
+            if(this.instance.position.x < -3)
+                this.direction = 1;
 
-
-        this.instance.position.x = (2 * ((this.deviceX / 360) - 0.5)) * 2;
-        this.instance.position.y = (((this.deviceY / 180) - 0.5) * -2) * 2;
+            this.instance.position.x += this.time.delta / 1000 * this.direction;
+        }
     }
 }
