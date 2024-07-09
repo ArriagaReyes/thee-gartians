@@ -16,7 +16,7 @@ export default class Rocket {
 
     setModel() {
         this.model.position.y = 1.2;
-        this.model.scale.set(0.5, 0.5, 0.5);
+        this.model.scale.set(0, 0, 0);
 
         this.scene.add(this.model);
     }

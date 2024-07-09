@@ -12,10 +12,10 @@ export default class Resources extends EventEmitter {
         this.toLoad = this.sources.length;
         this.loaded = [];
 
-        const logoElement = document.getElementById("logo");
+        const heroElement = document.getElementById("hero");
         this.loadingManager = new THREE.LoadingManager(
             () => {
-                gsap.to(logoElement, { delay: 1, duration: 3, scale: 1, opacity: 1 });
+                gsap.to(heroElement, { delay: 1, duration: 3, scale: 1, opacity: 1 });
             },
             (itemUrl, itemsLoaded, itemsTotal) => {
             }
