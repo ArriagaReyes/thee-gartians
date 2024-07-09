@@ -3,7 +3,6 @@ import Rocket from './Rocket';
 import { gsap } from 'gsap';
 
 import * as THREE from 'three';
-import { DragControls } from 'three/addons/controls/DragControls';
 
 export default class World {
     constructor() {
@@ -11,9 +10,9 @@ export default class World {
         this.camera = this.experience.camera;
         this.scene = this.experience.scene;
         this.resources = this.experience.resources;
+        this.time = this.experience.time;
 
-        this.controls;
-
+        // Fade away overlay
         const overlayGeometry = new THREE.PlaneGeometry(2, 2);
         const overlayMaterial = new THREE.ShaderMaterial({
             transparent: true,
@@ -37,6 +36,25 @@ export default class World {
         const overlay = new THREE.Mesh(overlayGeometry, overlayMaterial);
         this.scene.add(overlay);
 
+        // Particles
+        const particleGeometry = new THREE.BufferGeometry();
+        const count = 5000;
+        const positions = new Float32Array(count * 3);
+
+        for(let i = 0; i < count * 3; i++) {
+            positions[i] = (Math.random() - 0.5) * 10;
+        }
+
+        particleGeometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+
+        const particleMaterial = new THREE.PointsMaterial();
+        particleMaterial.color = new THREE.Color('#fff0f0');
+        particleMaterial.size = 0.05;
+        particleMaterial.sizeAttenuation = true;
+        this.particles = new THREE.Points(particleGeometry, particleMaterial);
+        this.scene.add(this.particles);
+
+        // Loading assets
         this.resources.on('ready', () => {
             this.rocket = new Rocket();
 
@@ -56,21 +74,16 @@ export default class World {
             this.scene.add(pointLight);
             this.scene.add(ambientLight);
 
-            this.setDragControls();
-
-            console.log(this.controls);
-
+            console.log(this.rocket);
+            gsap.to(this.rocket.model.scale, { duration: 6, x: 0.5, y: 0.5, z: 0.5 });
             gsap.to(overlayMaterial.uniforms.uAlpha, { duration: 6, value: 0 });
         });
     }
 
-    setDragControls() {
-        this.controls = new DragControls( this.rocket.scene, this.camera.instance, this.experience.canvas );
-    }
-
     update() {
-        if(this.rocket) {
+        if(this.rocket && this.particles) {
             this.camera.instance.lookAt(this.rocket.scene.position);
+            this.particles.rotation.x += this.time.delta / 10000;
         }
     }
 }
