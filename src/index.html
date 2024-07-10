@@ -5,23 +5,34 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="icon" href="rocket.png">
     <link rel="stylesheet" href="./style.css">
+    <script>function displayMailingList() {document.getElementById("mailingList").style.opacity = "1";}</script>
     <title>Thee Gartians</title>
 </head>
 <body>
     <div id="error"></div>
     <canvas id="root" class="absolute bg-gradient-to-br from-purple-500 to-pink-500"></canvas>
     <div id="hero" class="absolute flex flex-col justify-center items-center font-semibold scale-[0.0] opacity-0 h-full">
-        <img class="lg:w-1/2" src="logo.png">
+	<!-- Gartians Logo -->
+	<img class="lg:w-1/2" src="logo.png">
+
+	<!-- Icons -->
         <div class="flex mt-4">
             <div class="h-6 flex mr-4">
                 <img class="h-full mr-1" src="twitch_icon.svg">
                 <a href="https://www.twitch.tv/theegartians">Twitch</a>
             </div>
-            <div class="h-6 flex">
+            <div class="h-6 flex mr-4">
                 <img class="h-full mr-1" src="insta_icon.svg">
                 <a href="https://instagram.com/theegartians">Instagram</a>
             </div>
-        </div>
+
+	    <!-- Mailing List -->
+	    <div class="h-6 flex">
+		<img class="h-full mr-1" src="email.svg">
+		<button onclick="displayMailingList()">Mailing List</button>
+	    </div>
+	</div>
+        <input type="text" id="mailingList" name="email" placeholder="theegartians@gmail.com" style="opacity: 0; margin-top: 10px; padding-left: 10px; transition: opacity 1s ease-in-out; border-radius: 20px;">
     </div>
     <script type="module" src="/index.js"></script>
 </body>
