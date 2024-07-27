@@ -49,6 +49,8 @@ export default class World {
             this.stars = new Stars();
             this.rocket = new Rocket();
 
+            /*this.scene1 = new Scene1();
+            this.scene1.setScene();*/
             this.Scene2 = new Scene2();
             this.Scene2.setScene();
 

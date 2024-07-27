@@ -7,7 +7,7 @@ export default class Scene1 {
         this.scene = this.experience.scene;
     }
 
-    setLights() {
+    setScene() {
         const directional = new THREE.DirectionalLight( 0xA855F7, 3 );
         const target = new THREE.Object3D();
         target.position.set(-10, 0, -4);

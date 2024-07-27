@@ -27,12 +27,12 @@ precision mediump float;
 varying vec2 vUv;
 
 void main() {
-    float left = vUv.x;
-    float right = 1.0 - vUv.x;
+    vec2 uvNormal = vec2(vUv.x - 0.5, vUv.y - 0.5) * 7.0;
 
-    float gradient = left * right * 2.7;
+    float strength = 1.15;
+    float circle = smoothstep(1.0, 0.0, dot(uvNormal, uvNormal)) * strength;
 
-    gl_FragColor = vec4(gradient, gradient - 0.25, 0.0, 1.0);
+    gl_FragColor = vec4(circle, circle- 0.25, 0.0, 1.0);
 }
 
 `;
@@ -46,7 +46,7 @@ export default class Scene2 {
     setScene() {
         this.group = new THREE.Group();
 
-        const geometry = new THREE.CylinderGeometry(10, 10, 20, 16);
+        const geometry = new THREE.CylinderGeometry(15, 15, 100, 16);
         const material = new THREE.RawShaderMaterial({
             side: THREE.DoubleSide,
             vertexShader: vertex,
@@ -62,6 +62,7 @@ export default class Scene2 {
         fillLight.position.set(0, 0, 5);
 
         this.group.add(mesh, mainLight, fillLight);
+        this.group.rotation.y = (5.0 * Math.PI)/4.0;
 
         this.scene.add(this.group);
     }
