@@ -1,4 +1,5 @@
 import * as THREE from 'three';
+import { MTLLoader } from 'three/addons/loaders/MTLLoader';
 import { OBJLoader } from 'three/addons/loaders/OBJLoader';
 import EventEmitter from './EventEmitter';
 import { gsap } from 'gsap';
@@ -9,7 +10,7 @@ export default class Resources extends EventEmitter {
 
         this.sources = sources;
         this.items = {};
-        this.toLoad = this.sources.length;
+        this.toLoad = this.sources.length + 1;
         this.loaded = [];
 
         const heroElement = document.getElementById("hero");
@@ -27,13 +28,23 @@ export default class Resources extends EventEmitter {
 
     setLoaders() {
         this.loaders = {};
+        this.loaders.mtlLoader = new MTLLoader(this.loadingManager);
         this.loaders.objLoader = new OBJLoader(this.loadingManager);
     }
 
     startLoading() {
         for(const source of this.sources) {
-            if(source.type === 'objModel') {
-                this.loaders.objLoader.load(source.path, (file) => {
+            if(source.type === 'material') {
+                this.loaders.mtlLoader.load(source.path, (file) => {
+                    console.log(file);
+                    file.preload();
+                    console.log(source);
+                    if(source.obj) {
+                        this.loaders.objLoader.setMaterials(file);
+                        this.loaders.objLoader.load(source.obj.path, (file) => {
+                            this.sourceLoaded(source.obj, file);
+                        });
+                    }
                     this.sourceLoaded(source, file);
                 });
             }
@@ -43,8 +54,6 @@ export default class Resources extends EventEmitter {
     sourceLoaded(source, file) {
         this.items[source.name] = file;
         this.loaded++;
-
-        console.log(file);
 
         if(this.loaded === this.toLoad) {
             this.trigger('ready');

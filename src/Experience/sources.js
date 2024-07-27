@@ -1,7 +1,12 @@
 export default [
     {
-        name: 'rocketModel',
-        type: 'objModel',
-        path: 'ROCKET.obj',
+        name: 'rocketMaterial',
+        type: 'material',
+        path: 'rocket2.mtl',
+        obj: {
+            name: 'rocketModel',
+            type: 'objModel',
+            path: 'rocket2.obj'
+        }
     }
 ];

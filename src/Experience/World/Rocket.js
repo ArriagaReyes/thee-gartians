@@ -7,16 +7,18 @@ export default class Rocket {
         this.scene = this.experience.scene;
         this.resources = this.experience.resources;
 
-        console.log(this.resources.items.rocketModel);
-
         this.model = this.resources.items.rocketModel;
+        this.material = this.resources.items.rocketMaterial;
 
         this.setModel();
     }
 
     setModel() {
-        this.model.position.y = 1.2;
-        this.model.scale.set(0, 0, 0);
+        this.model.rotation.x = Math.PI;
+        this.model.rotation.z = Math.PI / 5;
+        this.model.scale.set(0.0, 0.0, 0.0);
+        this.model.position.y = -1.8;
+        this.model.position.x = -1;
 
         this.scene.add(this.model);
     }
