@@ -4,36 +4,42 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="icon" href="rocket.png">
-    <link rel="stylesheet" href="./style.css">
-    <script>function displayMailingList() {document.getElementById("mailingList").style.opacity = "1";}</script>
     <title>Thee Gartians</title>
 </head>
-<body>
-    <div id="error"></div>
-    <canvas id="root" class="absolute bg-gradient-to-br from-purple-500 to-pink-500"></canvas>
-    <div id="hero" class="absolute flex flex-col justify-center items-center font-semibold scale-[0.0] opacity-0 h-full">
-	<!-- Gartians Logo -->
-	<img class="lg:w-1/2" src="logo.png">
-
-	<!-- Icons -->
-        <div class="flex mt-4">
-            <div class="h-6 flex mr-4">
-                <img class="h-full mr-1" src="twitch_icon.svg">
-                <a href="https://www.twitch.tv/theegartians">Twitch</a>
-            </div>
-            <div class="h-6 flex mr-4">
-                <img class="h-full mr-1" src="insta_icon.svg">
-                <a href="https://instagram.com/theegartians">Instagram</a>
-            </div>
-
-	    <!-- Mailing List -->
-	    <div class="h-6 flex">
-		<img class="h-full mr-1" src="email.svg">
-		<button onclick="displayMailingList()">Mailing List</button>
-	    </div>
-	</div>
-        <input type="text" id="mailingList" name="email" placeholder="theegartians@gmail.com" style="opacity: 0; margin-top: 10px; padding-left: 10px; transition: opacity 1s ease-in-out; border-radius: 20px;">
+<body id="body" class="overflow-visble text-[#EEC863] opacity-0 bg-black" style="font-family: Basement">
+    <canvas id="root" class="fixed bg-black" style="z-index: -1;"></canvas>
+    <div id="hero" class="flex flex-col justify-center items-center h-[90vh] relative">
+        <img src="./logo-2.png" class="w-full pb-2">
+        <div class="pb-9">VOL.1 SONOS</div>
     </div>
+
+    <div class="relative flex flex-col w-full h-[100vh] text-2xl font-bold text-[#EEC863] items-center" style="font-family: Basement;">
+        <div id="animate">THE GARTIANS</div>
+        <div id="animate">ARE HOSTING AN</div>
+        <div id="animate">INTERPLANETARY</div>
+        <div id="animate">PARTY FOR</div>
+        <div id="animate">BEINGS OF ALL</div>
+        <div id="animate">KINDS ON</div>
+        <div id="animate">AUGUST 31ST</div>
+        <div id="animate">2024 IN</div>
+        <div id="animate">PARKSVILLE, NY.</div>
+        <div id="animate">WE WILL BE</div>
+        <div id="animate">HAVING A FUN</div>
+        <div id="animate">NIGHT UNDER THE</div>
+        <div id="animate">STARS WITH ART</div>
+        <div id="animate">AND LIVE MUISC!</div>
+    </div>
+
+    <!--<div class="relative h-[100vh] flex">
+        <div>Dropdown</div>
+        <ul>
+            <li>1</li>
+            <li>2</li>
+            <li>3</li>
+            <li>4</li>
+        </ul>
+    </div>-->
+
     <script type="module" src="/index.js"></script>
 </body>
 </html>

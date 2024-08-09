@@ -5,7 +5,11 @@ export default {
     "./src/**/*.{js,html}"
   ],
   theme: {
-    extend: {},
+    extend: {
+        fontFamily: {
+            'display': ["Basment", "sans-serif"]
+        }
+    },
   },
   plugins: [],
 }
