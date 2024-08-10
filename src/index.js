@@ -21,7 +21,7 @@ window.onload = (event) => {
         e.preventDefault();
         console.log('Checking out');
 
-        fetch('http://192.168.42.11:1234/create-checkout-session', {
+        fetch('https://thee-gartians-server.vercel.app/create-checkout-session', {
             method: 'post',
             headers: {
                 'Content-Type': 'application/json'
