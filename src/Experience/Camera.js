@@ -9,12 +9,6 @@ gsap.registerPlugin(ScrollTrigger);
 
 let gui //= new GUI();
 
-/*
- * Figure out a way to get
- * all camera movement animations
- * into one single tween
- */
-
 export default class Camera {
     constructor() {
         this.experience = new Experience();
@@ -38,16 +32,6 @@ export default class Camera {
 
         gsap.to(this.instance.rotation, {
             x: 2*Math.PI,
-            scrollTrigger: {
-                trigger: form,
-                //markers: true,
-                start: 'top center',
-                end: 'center',
-                scrub: true,
-            }
-        });
-
-        gsap.to(this.instance.rotation, {
             z: 0,
             scrollTrigger: {
                 trigger: form,
@@ -60,27 +44,7 @@ export default class Camera {
 
         gsap.to(this.instance.position, {
             y: 0,
-            scrollTrigger: {
-                trigger: form,
-                //markers: true,
-                start: 'top center',
-                end: 'center',
-                scrub: true,
-            }
-        });
-
-        gsap.to(this.instance.position, {
             z: 10,
-            scrollTrigger: {
-                trigger: form,
-                //markers: true,
-                start: 'top center',
-                end: 'center',
-                scrub: true,
-            }
-        });
-
-        gsap.to(this.instance.position, {
             x: -0.3,
             scrollTrigger: {
                 trigger: form,
@@ -90,6 +54,7 @@ export default class Camera {
                 scrub: true,
             }
         });
+
         //this.controls = new FlyControls(this.instance, this.canvas);
         //this.controls.dragToLook = true;
     }
