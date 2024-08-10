@@ -11,9 +11,20 @@
     <div id="hero" class="flex flex-col justify-center items-center h-[90vh] relative">
         <img src="./logo-2.png" class="w-full pb-2">
         <div class="pb-9">VOL.1 SONOS</div>
+
+        <div class="flex mt-4">
+            <div class="h-6 flex mr-4">
+                <img class="h-full mr-1" src="twitch_icon.png">
+                <a class="text-sm" href="https://www.twitch.tv/theegartians">TWTICH</a>
+            </div>
+            <div class="h-6 flex items-center mr-4">
+                <img class="h-full mr-1" src="insta_icon.png">
+                <a class="text-sm" href="https://instagram.com/theegartians">INSTAGRAM</a>
+            </div>
+        </div>
     </div>
 
-    <div class="relative flex flex-col w-full h-[100vh] text-2xl font-bold text-[#EEC863] items-center" style="font-family: Basement;">
+    <div class="relative flex flex-col w-full mb-32 text-2xl font-bold text-[#EEC863] items-center" style="font-family: Basement;">
         <div id="animate">THE GARTIANS</div>
         <div id="animate">ARE HOSTING AN</div>
         <div id="animate">INTERPLANETARY</div>
@@ -27,18 +38,29 @@
         <div id="animate">HAVING A FUN</div>
         <div id="animate">NIGHT UNDER THE</div>
         <div id="animate">STARS WITH ART</div>
-        <div id="animate">AND LIVE MUISC!</div>
+        <div id="animate">AND LIVE MUSIC!</div>
     </div>
 
-    <!--<div class="relative h-[100vh] flex">
-        <div>Dropdown</div>
-        <ul>
-            <li>1</li>
-            <li>2</li>
-            <li>3</li>
-            <li>4</li>
-        </ul>
-    </div>-->
+    <div id="checkout-form" class="relative h-[100vh] p-4">
+        <div class="flex flex-col justify-end border h-full rounded-lg border-2 border-[#EEC863]">
+            <div class="text-6xl pl-4">GET YOUR TICKET</div>
+            <form class="pl-4 pr-4 mt-6 text-2xl">
+                <label for="quantity">QUANTITY:</label>
+                <select name="qty" id="quantity">
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                    <option value="6">6</option>
+                </select>
+
+                <div>
+                    <button id="checkout-button" class="w-full bg-[#eec863] text-black mt-4 mb-4 pt-2 pb-1 rounded-md">CHECKOUT</button>
+                </div>
+            </form>
+        </div>
+    </div>
 
     <script type="module" src="/index.js"></script>
 </body>

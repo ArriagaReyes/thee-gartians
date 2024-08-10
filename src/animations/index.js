@@ -9,9 +9,7 @@ export default class Animations {
         gsap.to(body, { opacity: 1, duration: 6 });
 
         const elements = gsap.utils.toArray('#animate');
-        const frames = [{ fontSize: '38px', duration: 1 }, { fontSize: '24px', duration: 1 }];
-
-        console.log(elements[1]);
+        const frames = [{ fontSize: '34px', duration: 1 }, { fontSize: '24px', duration: 1 }];
 
         elements.forEach((element, i) => {
             gsap.to(element, {

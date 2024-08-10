@@ -2,6 +2,10 @@ import * as THREE from 'three';
 import Experience from './index.js';
 import { FlyControls } from 'three/examples/jsm/controls/FlyControls.js';
 import GUI from 'lil-gui';
+import { gsap } from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+
+gsap.registerPlugin(ScrollTrigger);
 
 let gui //= new GUI();
 
@@ -24,6 +28,62 @@ export default class Camera {
         this.instance.rotation.set(5.202, 0, 0.877);
         this.scene.add(this.instance);
 
+        const form = document.getElementById('checkout-form');
+
+        gsap.to(this.instance.rotation, {
+            x: 2*Math.PI,
+            scrollTrigger: {
+                trigger: form,
+                markers: true,
+                start: 'top center',
+                end: 'center',
+                scrub: true,
+            }
+        });
+
+        gsap.to(this.instance.rotation, {
+            z: 0,
+            scrollTrigger: {
+                trigger: form,
+                markers: true,
+                start: 'top center',
+                end: 'center',
+                scrub: true,
+            }
+        });
+
+        gsap.to(this.instance.position, {
+            y: 0,
+            scrollTrigger: {
+                trigger: form,
+                markers: true,
+                start: 'top center',
+                end: 'center',
+                scrub: true,
+            }
+        });
+
+        gsap.to(this.instance.position, {
+            z: 10,
+            scrollTrigger: {
+                trigger: form,
+                markers: true,
+                start: 'top center',
+                end: 'center',
+                scrub: true,
+            }
+        });
+
+        gsap.to(this.instance.position, {
+            x: -0.3,
+            scrollTrigger: {
+                trigger: form,
+                markers: true,
+                start: 'top center',
+                end: 'center',
+                scrub: true,
+            }
+        });
         //this.controls = new FlyControls(this.instance, this.canvas);
         //this.controls.dragToLook = true;
     }
