@@ -17,9 +17,21 @@ window.onload = (event) => {
 
 
     const checkout = document.getElementById('checkout-button');
+    const checkout_click = checkout.children[0];
+    const checkout_wait = checkout.children[1];
+
+    console.log(checkout_click);
+
     checkout.addEventListener('click', (e) => {
         e.preventDefault();
-        console.log('Checking out');
+
+        let checkoutClassName = checkout.getAttribute("class");
+        checkoutClassName += " disabled:opacity-50";
+        checkout.setAttribute("class", checkoutClassName);
+        checkout.setAttribute("disabled", "");
+
+        checkout_click.setAttribute("class", "hidden");
+        checkout_wait.setAttribute("class", "show");
 
         fetch('https://thee-gartians-server.vercel.app/create-checkout-session', {
             method: 'post',
